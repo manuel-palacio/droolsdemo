@@ -1,0 +1,27 @@
+import Applicant;
+
+dialect  "mvel"
+
+rule "Suggest Manager Role"
+    when
+        applicant: Applicant(experienceInYears > 10)
+        Applicant(currentSalary > 1000000 && currentSalary <= 2500000)
+    then
+        applicant.setSuggestedRole("Manager");
+end
+
+rule "Suggest Senior developer Role"
+    when
+        applicant: Applicant(experienceInYears > 5 && experienceInYears <= 10)
+        Applicant(currentSalary > 500000 && currentSalary <= 1500000)
+    then
+        applicant.setSuggestedRole("Senior developer");
+end
+
+rule "Suggest Developer Role"
+    when
+        applicant: Applicant(experienceInYears > 0 && experienceInYears <= 5)
+        Applicant(currentSalary > 200000 && currentSalary <= 1000000)
+    then
+        applicant.setSuggestedRole("Developer");
+end
